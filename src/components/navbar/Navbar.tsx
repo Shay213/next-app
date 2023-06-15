@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import styles from "./page.module.css";
+import Logout from "../logout/Logout";
 
 const LINKS = [
   {
@@ -38,13 +39,16 @@ const LINKS = [
 const Navbar = () => {
   return (
     <div className={styles.container}>
-      <Link href="/">coolname</Link>
-      <div>
+      <Link href="/" className={styles.logo}>
+        coolname
+      </Link>
+      <div className={styles.links}>
         {LINKS.map((link) => (
-          <Link key={link.id} href={link.url}>
+          <Link key={link.id} href={link.url} className={styles.link}>
             {link.title}
           </Link>
         ))}
+        <Logout />
       </div>
     </div>
   );
