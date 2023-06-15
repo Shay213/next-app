@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import styles from "./page.module.css";
 
 const LINKS = [
   {
@@ -36,7 +37,7 @@ const LINKS = [
 
 const Navbar = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <Link href="/">coolname</Link>
       <div>
         {LINKS.map((link) => (
