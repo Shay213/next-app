@@ -2,41 +2,37 @@ import React from "react";
 import styles from "./page.module.css";
 import Button from "@/components/buttons/Button";
 import Image from "next/image";
+import { items } from "./data";
+import { notFound } from "next/navigation";
+
+const getData = (cat: string) => {
+  const data = items[cat];
+
+  if (data) {
+    return data;
+  }
+
+  return notFound();
+};
 
 const Category = ({ params }: { params: { category: string } }) => {
+  const data = getData(params.category);
+
   return (
     <div className={styles.container}>
       <h1 className={styles.catTitle}>{params.category}</h1>
-      <div className={styles.item}>
-        <div className={styles.content}>
-          <h1 className={styles.title}>Test</h1>
-          <p className={styles.desc}>Desc</p>
-          <Button text="See More" url="#" />
+      {data.map((item) => (
+        <div className={styles.item} key={item.id}>
+          <div className={styles.content}>
+            <h1 className={styles.title}>{item.title}</h1>
+            <p className={styles.desc}>{item.desc}</p>
+            <Button text="See More" url="#" />
+          </div>
+          <div className={styles.imgContainer}>
+            <Image className={styles.img} src={item.image} alt="img" fill />
+          </div>
         </div>
-        <div className={styles.imgContainer}>
-          <Image
-            className={styles.img}
-            src="https://images.pexels.com/photos/7011974/pexels-photo-7011974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="img"
-            fill
-          />
-        </div>
-      </div>
-      <div className={styles.item}>
-        <div className={styles.content}>
-          <h1 className={styles.title}>Test</h1>
-          <p className={styles.desc}>Desc</p>
-          <Button text="See More" url="#" />
-        </div>
-        <div className={styles.imgContainer}>
-          <Image
-            className={styles.img}
-            src="https://images.pexels.com/photos/7011974/pexels-photo-7011974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="img"
-            fill
-          />
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
